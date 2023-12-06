@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,4 +24,13 @@ public class SchedaPalestra {
     @OneToOne
     @JoinColumn(name = "utente_id")
     private Utente utente;
+
+    @OneToMany(mappedBy = "schedaPalestra", cascade = CascadeType.ALL)
+    private List<SchedaEsercizi> schedaEsercizi;
+
+    @OneToMany(mappedBy = "schedaPalestra", cascade = CascadeType.ALL)
+    private List<SchedaSalute> schedaSalute;
+
+    @OneToOne(mappedBy = "schedaPalestra", cascade = CascadeType.ALL)
+    private Iscrizione iscrizione;
 }

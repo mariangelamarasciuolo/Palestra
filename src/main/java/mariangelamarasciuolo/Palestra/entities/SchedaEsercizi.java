@@ -21,4 +21,5 @@ public class SchedaEsercizi {
     @ManyToOne
     @JoinColumn(name = "scheda_palestra_id")
     private SchedaPalestra schedaPalestra;
+
 }

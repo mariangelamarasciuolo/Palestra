@@ -29,6 +29,7 @@ public class Iscrizione {
     @JoinColumn(name = "scheda_palestra_id")
     private SchedaPalestra schedaPalestra;
 
+
     public Iscrizione(LocalDate dataIscrizione, LocalDate dataScadenza, boolean pagamentoEffettuato) {
         this.dataIscrizione = dataIscrizione;
         this.dataScadenza = dataScadenza;
