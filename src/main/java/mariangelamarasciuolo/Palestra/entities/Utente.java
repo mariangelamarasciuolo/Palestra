@@ -40,6 +40,7 @@ public class Utente implements UserDetails {
         this.cognome = cognome;
         this.email = email;
         this.password = password;
+        this.ruolo = Ruolo.UTENTE;
     }
 
     public Utente() {

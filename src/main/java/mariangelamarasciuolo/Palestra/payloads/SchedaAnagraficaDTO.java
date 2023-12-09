@@ -1,6 +1,7 @@
 package mariangelamarasciuolo.Palestra.payloads;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public record SchedaAnagraficaDTO(
         @NotEmpty(message = "il campo dell'indirizzo non puo essere vuoto")
@@ -14,5 +15,8 @@ public record SchedaAnagraficaDTO(
         String nazionalita,
         String telefonoFisso,
         @NotEmpty(message = "il campo del numero di cellulare non puo essere vuoto")
-        String telefonoMobile) {
+        String telefonoMobile,
+
+        @NotNull(message = "l'Id dell'utente non può essere null")
+        Long utente_id) {
 }

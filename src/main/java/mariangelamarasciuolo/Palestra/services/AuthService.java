@@ -1,5 +1,6 @@
 package mariangelamarasciuolo.Palestra.services;
 
+import mariangelamarasciuolo.Palestra.Enum.Ruolo;
 import mariangelamarasciuolo.Palestra.entities.Utente;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.exceptions.UnauthorizedException;
@@ -42,6 +43,7 @@ public class AuthService {
         newUtente.setCognome(body.cognome());
         newUtente.setEmail(body.email());
         newUtente.setPassword(bcrypt.encode(body.password()));
+        newUtente.setRuolo(Ruolo.UTENTE);
 
         return utenteRepository.save(newUtente);
     }

@@ -35,4 +35,8 @@ public class Iscrizione {
         this.dataScadenza = dataScadenza;
         this.pagamentoEffettuato = pagamentoEffettuato;
     }
+
+    public Iscrizione() {
+        
+    }
 }
