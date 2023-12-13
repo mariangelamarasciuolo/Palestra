@@ -23,10 +23,13 @@ public class IscrizioneController {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public Iscrizione saveIscrizione(@RequestBody @Validated IscrizioneDTO body, BindingResult validation) {
+
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         } else {
+
             try {
+                System.out.println("prima");
                 return iscrizioneService.saveIscrizione(body);
             } catch (IOException e) {
                 throw new RuntimeException(e);

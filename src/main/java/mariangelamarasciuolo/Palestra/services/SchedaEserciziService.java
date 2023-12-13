@@ -3,6 +3,7 @@ package mariangelamarasciuolo.Palestra.services;
 import mariangelamarasciuolo.Palestra.entities.SchedaEsercizi;
 import mariangelamarasciuolo.Palestra.payloads.SchedaEserciziDTO;
 import mariangelamarasciuolo.Palestra.repositories.SchedaEserciziRepository;
+import mariangelamarasciuolo.Palestra.repositories.SchedaPalestraRepository;
 import mariangelamarasciuolo.Palestra.repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class SchedaEserciziService {
 
     @Autowired
     private UtenteRepository utenteRepository;
+    @Autowired
+    private SchedaPalestraRepository schedaPalestraRepository;
 
     public SchedaEsercizi saveSchedaEsercizi(SchedaEserciziDTO body) throws IOException {
 
@@ -23,7 +26,7 @@ public class SchedaEserciziService {
         newSchedaEsercizi.setDataSchedaEsercizi(body.dataSchedaEsercizi());
         newSchedaEsercizi.setNomeSchedaEsercizi(body.nomeSchedaEsercizi());
         newSchedaEsercizi.setDescrizione(body.descrizione());
-        //newSchedaEsercizi.setUtente(utenteRepository.findById(body.utente_id()).get());
+        newSchedaEsercizi.setSchedaPalestra(schedaPalestraRepository.findById(body.schedaPalestra_id()).get());
         return schedaEserciziRepository.save(newSchedaEsercizi);
     }
 }

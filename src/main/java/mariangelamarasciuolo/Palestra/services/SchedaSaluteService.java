@@ -2,6 +2,7 @@ package mariangelamarasciuolo.Palestra.services;
 
 import mariangelamarasciuolo.Palestra.entities.SchedaSalute;
 import mariangelamarasciuolo.Palestra.payloads.SchedaSaluteDTO;
+import mariangelamarasciuolo.Palestra.repositories.SchedaPalestraRepository;
 import mariangelamarasciuolo.Palestra.repositories.SchedaSaluteRepository;
 import mariangelamarasciuolo.Palestra.repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class SchedaSaluteService {
 
     @Autowired
     private UtenteRepository utenteRepository;
+    @Autowired
+    private SchedaPalestraRepository schedaPalestraRepository;
+
 
     public SchedaSalute saveSchedaSalute(SchedaSaluteDTO body) throws IOException {
 
@@ -23,7 +27,7 @@ public class SchedaSaluteService {
         newSchedaSalute.setDataSchedaSalute(body.dataSchedaSalute());
         newSchedaSalute.setPatologie(body.patologie());
         newSchedaSalute.setNote(body.note());
-        //newSchedaSalute.setUtente(utenteRepository.findById(body.utente_id()).get());
+        newSchedaSalute.setSchedaPalestra(schedaPalestraRepository.findById(body.schedaPalestra_id()).get());
         return schedaSaluteRepository.save(newSchedaSalute);
     }
 }

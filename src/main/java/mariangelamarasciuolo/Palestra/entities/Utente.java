@@ -1,5 +1,6 @@
 package mariangelamarasciuolo.Palestra.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,9 +29,11 @@ public class Utente implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Ruolo ruolo;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
     private SchedaAnagrafica schedaAnagrafica;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "utente", cascade = CascadeType.ALL)
     private SchedaPalestra schedaPalestra;
 

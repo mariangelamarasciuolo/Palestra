@@ -1,6 +1,5 @@
 package mariangelamarasciuolo.Palestra.controllers;
 
-import io.swagger.v3.oas.annotations.Hidden;
 import mariangelamarasciuolo.Palestra.entities.SchedaPalestra;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaPalestraDTO;
@@ -14,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/scheda_palestra")
+@RequestMapping("/schedaPalestra")
 public class SchedaPalestraController {
     @Autowired
     SchedaPalestraService schedaPalestraService;
 
-    @Hidden
+
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public SchedaPalestra saveSchedaPalestra(@RequestBody @Validated SchedaPalestraDTO body, BindingResult validation) {
