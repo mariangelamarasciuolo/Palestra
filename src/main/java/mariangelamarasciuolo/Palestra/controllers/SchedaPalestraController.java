@@ -1,11 +1,13 @@
 package mariangelamarasciuolo.Palestra.controllers;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import mariangelamarasciuolo.Palestra.entities.SchedaPalestra;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaPalestraDTO;
 import mariangelamarasciuolo.Palestra.services.SchedaPalestraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +33,26 @@ public class SchedaPalestraController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @GetMapping("/{idSchedaPalestra}")
+    public SchedaPalestra findByIdSchedaPalestra(@PathVariable long id) {
+        return schedaPalestraService.findByIdSchedaPalestra(id);
+    }
+
+    @PutMapping("{idSchedaPalestra}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public SchedaPalestra updateSchedaPalestraById(@PathVariable @Parameter(description = "id della scheda anagrafica da modificare") long id, @RequestBody @Validated SchedaPalestraDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            return schedaPalestraService.updateSchedaPalestraById(id, body);
+        }
+    }
+
+    @DeleteMapping("/{idSchedaPalestra}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteSchedaPalestraById(@PathVariable long id) {
+        schedaPalestraService.deleteSchedaPalestraById(id);
     }
 }

@@ -7,6 +7,7 @@ import mariangelamarasciuolo.Palestra.payloads.SchedaSaluteDTO;
 import mariangelamarasciuolo.Palestra.services.SchedaSaluteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +33,16 @@ public class SchedaSaluteController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @GetMapping("/{idSchedaSalute}")
+    public SchedaSalute findByIdSchedaSalute(@PathVariable long id) {
+        return schedaSaluteService.findByIdSchedaSalute(id);
+    }
+
+    @DeleteMapping("/{idSchedaSalute}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteSchedaSaluteById(@PathVariable long id) {
+        schedaSaluteService.deleteSchedaSaluteById(id);
     }
 }

@@ -3,6 +3,7 @@ package mariangelamarasciuolo.Palestra.services;
 import mariangelamarasciuolo.Palestra.Enum.Abbonamento;
 import mariangelamarasciuolo.Palestra.entities.Iscrizione;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
+import mariangelamarasciuolo.Palestra.exceptions.NotFoundException;
 import mariangelamarasciuolo.Palestra.payloads.IscrizioneDTO;
 import mariangelamarasciuolo.Palestra.repositories.IscrizioneRepository;
 import mariangelamarasciuolo.Palestra.repositories.SchedaPalestraRepository;
@@ -38,5 +39,14 @@ public class IscrizioneService {
         newIscrizione.setAbbonamento(Abbonamento.valueOf(body.abbonamento()));
         System.out.println("dopo service");
         return iscrizioneRepository.save(newIscrizione);
+    }
+
+    public Iscrizione findByIdIscrizione(long idIscrizione) throws NotFoundException {
+        return iscrizioneRepository.findById(idIscrizione).orElseThrow(() -> new NotFoundException(idIscrizione));
+    }
+
+    public void deleteIscrizioneById(long id) {
+        Iscrizione iscrizione = iscrizioneRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        iscrizioneRepository.delete(iscrizione);
     }
 }

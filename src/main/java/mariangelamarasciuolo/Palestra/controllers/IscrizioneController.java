@@ -7,6 +7,7 @@ import mariangelamarasciuolo.Palestra.payloads.IscrizioneDTO;
 import mariangelamarasciuolo.Palestra.services.IscrizioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,16 @@ public class IscrizioneController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @GetMapping("/{idIscrizione}")
+    public Iscrizione findByIdIscrizione(@PathVariable long id) {
+        return iscrizioneService.findByIdIscrizione(id);
+    }
+
+    @DeleteMapping("/{idIscrizione}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteIscrizioneById(@PathVariable long id) {
+        iscrizioneService.deleteIscrizioneById(id);
     }
 }

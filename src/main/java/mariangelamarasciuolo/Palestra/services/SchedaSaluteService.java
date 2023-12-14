@@ -1,6 +1,7 @@
 package mariangelamarasciuolo.Palestra.services;
 
 import mariangelamarasciuolo.Palestra.entities.SchedaSalute;
+import mariangelamarasciuolo.Palestra.exceptions.NotFoundException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaSaluteDTO;
 import mariangelamarasciuolo.Palestra.repositories.SchedaPalestraRepository;
 import mariangelamarasciuolo.Palestra.repositories.SchedaSaluteRepository;
@@ -29,5 +30,14 @@ public class SchedaSaluteService {
         newSchedaSalute.setNote(body.note());
         newSchedaSalute.setSchedaPalestra(schedaPalestraRepository.findById(body.schedaPalestra_id()).get());
         return schedaSaluteRepository.save(newSchedaSalute);
+    }
+
+    public SchedaSalute findByIdSchedaSalute(long idSchedaSalute) throws NotFoundException {
+        return schedaSaluteRepository.findById(idSchedaSalute).orElseThrow(() -> new NotFoundException(idSchedaSalute));
+    }
+
+    public void deleteSchedaSaluteById(long id) {
+        SchedaSalute schedaSalute = schedaSaluteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        schedaSaluteRepository.delete(schedaSalute);
     }
 }

@@ -7,6 +7,7 @@ import mariangelamarasciuolo.Palestra.payloads.SchedaEserciziDTO;
 import mariangelamarasciuolo.Palestra.services.SchedaEserciziService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +33,16 @@ public class SchedaEserciziController {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @GetMapping("/{idSchedaEsercizi}")
+    public SchedaEsercizi findByIdSchedaEsercizi(@PathVariable long id) {
+        return schedaEserciziService.findByIdSchedaEsercizi(id);
+    }
+
+    @DeleteMapping("/{idSchedaEsercizi}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteSchedaEserciziById(@PathVariable long id) {
+        schedaEserciziService.deleteSchedaEserciziById(id);
     }
 }

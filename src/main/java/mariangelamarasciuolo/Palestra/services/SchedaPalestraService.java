@@ -1,6 +1,7 @@
 package mariangelamarasciuolo.Palestra.services;
 
 import mariangelamarasciuolo.Palestra.entities.SchedaPalestra;
+import mariangelamarasciuolo.Palestra.exceptions.NotFoundException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaPalestraDTO;
 import mariangelamarasciuolo.Palestra.repositories.SchedaPalestraRepository;
 import mariangelamarasciuolo.Palestra.repositories.UtenteRepository;
@@ -26,5 +27,23 @@ public class SchedaPalestraService {
         newSchedaPalestra.setUtente(utenteRepository.findById(body.utente_id()).get());
         System.out.println("dopo service sheda palestra");
         return schedaPalestraRepository.save(newSchedaPalestra);
+    }
+
+    public SchedaPalestra findByIdSchedaPalestra(long idSchedaPalestra) throws NotFoundException {
+        return schedaPalestraRepository.findById(idSchedaPalestra).orElseThrow(() -> new NotFoundException(idSchedaPalestra));
+    }
+
+    public SchedaPalestra updateSchedaPalestraById(long id, SchedaPalestraDTO body) {
+        SchedaPalestra schedaPalestra = schedaPalestraRepository.findById(id).orElseThrow(() -> new RuntimeException("Scheda anagrafica non trovata"));
+        schedaPalestra.setSesso(body.sesso());
+        schedaPalestra.setDataDiNascita(body.dataDiNascita());
+        schedaPalestra.setPeso(body.peso());
+        schedaPalestra.setAltezza(body.altezza());
+        return schedaPalestraRepository.save(schedaPalestra);
+    }
+
+    public void deleteSchedaPalestraById(long id) {
+        SchedaPalestra schedaPalestra = schedaPalestraRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+        schedaPalestraRepository.delete(schedaPalestra);
     }
 }
