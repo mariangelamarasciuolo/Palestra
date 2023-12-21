@@ -1,6 +1,7 @@
 package mariangelamarasciuolo.Palestra.controllers;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Parameter;
 import mariangelamarasciuolo.Palestra.entities.Iscrizione;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.payloads.IscrizioneDTO;
@@ -39,13 +40,23 @@ public class IscrizioneController {
     }
 
     @GetMapping("/{idIscrizione}")
-    public Iscrizione findByIdIscrizione(@PathVariable long id) {
-        return iscrizioneService.findByIdIscrizione(id);
+    public Iscrizione findByIdIscrizione(@PathVariable long idIscrizione) {
+        return iscrizioneService.findByIdIscrizione(idIscrizione);
+    }
+
+    @PutMapping("{idIscrizione}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Iscrizione updateIscrizioneById(@PathVariable @Parameter(description = "id dell'iscrizione da modificare") long idIscrizione, @RequestBody @Validated IscrizioneDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            return iscrizioneService.updateIscrizioneById(idIscrizione, body);
+        }
     }
 
     @DeleteMapping("/{idIscrizione}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteIscrizioneById(@PathVariable long id) {
-        iscrizioneService.deleteIscrizioneById(id);
+    public void deleteIscrizioneById(@PathVariable long idIscrizione) {
+        iscrizioneService.deleteIscrizioneById(idIscrizione);
     }
 }

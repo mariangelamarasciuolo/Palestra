@@ -1,6 +1,7 @@
 package mariangelamarasciuolo.Palestra.controllers;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Parameter;
 import mariangelamarasciuolo.Palestra.entities.SchedaEsercizi;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaEserciziDTO;
@@ -38,6 +39,16 @@ public class SchedaEserciziController {
     @GetMapping("/{idSchedaEsercizi}")
     public SchedaEsercizi findByIdSchedaEsercizi(@PathVariable long id) {
         return schedaEserciziService.findByIdSchedaEsercizi(id);
+    }
+
+    @PutMapping("{idSchedaEsercizi}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public SchedaEsercizi updateSchedaEserciziById(@PathVariable @Parameter(description = "id della scheda esercizi da modificare") long idSchedaEsercizi, @RequestBody @Validated SchedaEserciziDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            return schedaEserciziService.updateSchedaEserciziById(idSchedaEsercizi, body);
+        }
     }
 
     @DeleteMapping("/{idSchedaEsercizi}")

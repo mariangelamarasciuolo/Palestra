@@ -37,23 +37,23 @@ public class SchedaAnagraficaController {
     }
 
     @GetMapping("/{idSchedaAnagrafica}")
-    public SchedaAnagrafica findByIdSchedaAnagrafica(@PathVariable long id) {
-        return schedaAnagraficaService.findByIdSchedaAnagrafica(id);
+    public SchedaAnagrafica findByIdSchedaAnagrafica(@PathVariable long idSchedaAnagrafica) {
+        return schedaAnagraficaService.findByIdSchedaAnagrafica(idSchedaAnagrafica);
     }
 
-    @PutMapping("{idSchedaAnagrafica}")
+    @PutMapping("/{idSchedaAnagrafica}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public SchedaAnagrafica updateSchedaAnagraficaById(@PathVariable @Parameter(description = "id della scheda anagrafica da modificare") long id, @RequestBody @Validated SchedaAnagraficaDTO body, BindingResult validation) {
+    public SchedaAnagrafica updateSchedaAnagraficaById(@PathVariable @Parameter(description = "id della scheda anagrafica da modificare") long idSchedaAnagrafica, @RequestBody @Validated SchedaAnagraficaDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         } else {
-            return schedaAnagraficaService.updateSchedaAnagraficaById(id, body);
+            return schedaAnagraficaService.updateSchedaAnagraficaById(idSchedaAnagrafica, body);
         }
     }
 
     @DeleteMapping("/{idSchedaAnagrafica}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteSchedaAnagraficaById(@PathVariable long id) {
-        schedaAnagraficaService.deleteSchedaAnagraficaById(id);
+    public void deleteSchedaAnagraficaById(@PathVariable long idSchedaAnagrafica) {
+        schedaAnagraficaService.deleteSchedaAnagraficaById(idSchedaAnagrafica);
     }
 }

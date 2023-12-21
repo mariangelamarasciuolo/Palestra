@@ -35,6 +35,14 @@ public class SchedaEserciziService {
         return schedaEserciziRepository.findById(idSchedaEsercizi).orElseThrow(() -> new NotFoundException(idSchedaEsercizi));
     }
 
+    public SchedaEsercizi updateSchedaEserciziById(long idSchedaEsercizi, SchedaEserciziDTO body) {
+        SchedaEsercizi schedaEsercizi = schedaEserciziRepository.findById(idSchedaEsercizi).orElseThrow(() -> new RuntimeException("Scheda esercizi non trovata"));
+        schedaEsercizi.setNomeSchedaEsercizi(body.nomeSchedaEsercizi());
+        schedaEsercizi.setDataSchedaEsercizi(body.dataSchedaEsercizi());
+        schedaEsercizi.setDescrizione(body.descrizione());
+        return schedaEserciziRepository.save(schedaEsercizi);
+    }
+
     public void deleteSchedaEserciziById(long id) {
         SchedaEsercizi schedaEsercizi = schedaEserciziRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         schedaEserciziRepository.delete(schedaEsercizi);

@@ -22,6 +22,7 @@ public class SchedaPalestraController {
 
 
     @PostMapping("")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public SchedaPalestra saveSchedaPalestra(@RequestBody @Validated SchedaPalestraDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -36,23 +37,23 @@ public class SchedaPalestraController {
     }
 
     @GetMapping("/{idSchedaPalestra}")
-    public SchedaPalestra findByIdSchedaPalestra(@PathVariable long id) {
-        return schedaPalestraService.findByIdSchedaPalestra(id);
+    public SchedaPalestra findByIdSchedaPalestra(@PathVariable long idSchedaPalestra) {
+        return schedaPalestraService.findByIdSchedaPalestra(idSchedaPalestra);
     }
 
     @PutMapping("{idSchedaPalestra}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public SchedaPalestra updateSchedaPalestraById(@PathVariable @Parameter(description = "id della scheda anagrafica da modificare") long id, @RequestBody @Validated SchedaPalestraDTO body, BindingResult validation) {
+    public SchedaPalestra updateSchedaPalestraById(@PathVariable @Parameter(description = "id della scheda anagrafica da modificare") long idSchedaPalestra, @RequestBody @Validated SchedaPalestraDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         } else {
-            return schedaPalestraService.updateSchedaPalestraById(id, body);
+            return schedaPalestraService.updateSchedaPalestraById(idSchedaPalestra, body);
         }
     }
 
     @DeleteMapping("/{idSchedaPalestra}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteSchedaPalestraById(@PathVariable long id) {
-        schedaPalestraService.deleteSchedaPalestraById(id);
+    public void deleteSchedaPalestraById(@PathVariable long idSchedaPalestra) {
+        schedaPalestraService.deleteSchedaPalestraById(idSchedaPalestra);
     }
 }

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
-    @Autowired
-    private UtenteService utenteService;
 
 
     public Utente findByEmail(String email) {

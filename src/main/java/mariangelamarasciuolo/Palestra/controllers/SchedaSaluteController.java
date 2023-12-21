@@ -1,6 +1,7 @@
 package mariangelamarasciuolo.Palestra.controllers;
 
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Parameter;
 import mariangelamarasciuolo.Palestra.entities.SchedaSalute;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaSaluteDTO;
@@ -40,9 +41,19 @@ public class SchedaSaluteController {
         return schedaSaluteService.findByIdSchedaSalute(id);
     }
 
+    @PutMapping("{idSchedaSalute}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public SchedaSalute updateSchedaSaluteById(@PathVariable @Parameter(description = "id della scheda salute da modificare") long idSchedaSalute, @RequestBody @Validated SchedaSaluteDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            return schedaSaluteService.updateSchedaSaluteById(idSchedaSalute, body);
+        }
+    }
+
     @DeleteMapping("/{idSchedaSalute}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteSchedaSaluteById(@PathVariable long id) {
-        schedaSaluteService.deleteSchedaSaluteById(id);
+    public void deleteSchedaSaluteById(@PathVariable long idSchedaSalute) {
+        schedaSaluteService.deleteSchedaSaluteById(idSchedaSalute);
     }
 }

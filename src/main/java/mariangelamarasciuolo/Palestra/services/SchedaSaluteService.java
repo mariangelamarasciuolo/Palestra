@@ -36,8 +36,16 @@ public class SchedaSaluteService {
         return schedaSaluteRepository.findById(idSchedaSalute).orElseThrow(() -> new NotFoundException(idSchedaSalute));
     }
 
-    public void deleteSchedaSaluteById(long id) {
-        SchedaSalute schedaSalute = schedaSaluteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    public SchedaSalute updateSchedaSaluteById(long idSchedaSalute, SchedaSaluteDTO body) {
+        SchedaSalute schedaSalute = schedaSaluteRepository.findById(idSchedaSalute).orElseThrow(() -> new RuntimeException("Scheda salute non trovata"));
+        schedaSalute.setNote(body.note());
+        schedaSalute.setDataSchedaSalute(body.dataSchedaSalute());
+        schedaSalute.setPatologie(body.patologie());
+        return schedaSaluteRepository.save(schedaSalute);
+    }
+
+    public void deleteSchedaSaluteById(long idSchedaSalute) {
+        SchedaSalute schedaSalute = schedaSaluteRepository.findById(idSchedaSalute).orElseThrow(() -> new NotFoundException(idSchedaSalute));
         schedaSaluteRepository.delete(schedaSalute);
     }
 }

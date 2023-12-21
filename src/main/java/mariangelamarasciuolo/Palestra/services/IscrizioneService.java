@@ -45,8 +45,27 @@ public class IscrizioneService {
         return iscrizioneRepository.findById(idIscrizione).orElseThrow(() -> new NotFoundException(idIscrizione));
     }
 
-    public void deleteIscrizioneById(long id) {
-        Iscrizione iscrizione = iscrizioneRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
+    public Iscrizione updateIscrizioneById(long idIscrizione, IscrizioneDTO body) {
+        Iscrizione iscrizione = iscrizioneRepository.findById(idIscrizione).orElseThrow(() -> new RuntimeException("Iscrizione non trovata"));
+        iscrizione.setDataIscrizione(LocalDate.now());
+        if (body.abbonamento().equals("MENSILE")) {
+            iscrizione.setDataScadenza(LocalDate.now().plusMonths(1));
+        } else if (body.abbonamento().equals("SEMESTRALE")) {
+            iscrizione.setDataScadenza(LocalDate.now().plusMonths(6));
+        } else if (body.abbonamento().equals("ANNUALE")) {
+            iscrizione.setDataScadenza(LocalDate.now().plusYears(1));
+        } else {
+            throw new BadRequestException("Non c'è nessun abbonamento");
+        }
+
+
+        iscrizione.setAbbonamento(Abbonamento.valueOf(body.abbonamento()));
+        iscrizione.setPagamentoEffettuato(body.pagamentoEffettuato());
+        return iscrizioneRepository.save(iscrizione);
+    }
+
+    public void deleteIscrizioneById(long idIscrizione) {
+        Iscrizione iscrizione = iscrizioneRepository.findById(idIscrizione).orElseThrow(() -> new NotFoundException(idIscrizione));
         iscrizioneRepository.delete(iscrizione);
     }
 }

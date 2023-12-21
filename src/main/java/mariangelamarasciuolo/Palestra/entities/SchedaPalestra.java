@@ -1,6 +1,7 @@
 package mariangelamarasciuolo.Palestra.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,12 +26,15 @@ public class SchedaPalestra {
     @JoinColumn(name = "utente_id")
     private Utente utente;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "schedaPalestra", cascade = CascadeType.ALL)
     private List<SchedaEsercizi> schedaEsercizi;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "schedaPalestra", cascade = CascadeType.ALL)
     private List<SchedaSalute> schedaSalute;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "schedaPalestra", cascade = CascadeType.ALL)
     private Iscrizione iscrizione;
 }

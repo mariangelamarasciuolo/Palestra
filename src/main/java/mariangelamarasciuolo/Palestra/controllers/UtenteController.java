@@ -12,30 +12,30 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/utenti")
+@RequestMapping("/utenti")
 public class UtenteController {
     @Autowired
     private UtenteService utenteService;
 
-    @GetMapping("/{id}")
-    public Utente findById(@PathVariable long id) {
-        return utenteService.findById(id);
+    @GetMapping("/{idUtente}")
+    public Utente findById(@PathVariable long idUtente) {
+        return utenteService.findById(idUtente);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{idUtente}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Utente updateUtenteById(@PathVariable @Parameter(description = "id del cliente da modificare") long id, @RequestBody @Validated UtenteDTO body, BindingResult validation) {
+    public Utente updateUtenteById(@PathVariable @Parameter(description = "id del cliente da modificare") long idUtente, @RequestBody @Validated UtenteDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         } else {
-            return utenteService.updateById(id, body);
+            return utenteService.updateById(idUtente, body);
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idUtente}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteUtenteById(@PathVariable long id) {
-        utenteService.deleteById(id);
+    public void deleteUtenteById(@PathVariable long idUtente) {
+        utenteService.deleteById(idUtente);
     }
 
 
