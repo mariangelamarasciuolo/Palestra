@@ -37,8 +37,8 @@ public class SchedaEserciziController {
     }
 
     @GetMapping("/{idSchedaEsercizi}")
-    public SchedaEsercizi findByIdSchedaEsercizi(@PathVariable long id) {
-        return schedaEserciziService.findByIdSchedaEsercizi(id);
+    public SchedaEsercizi findByIdSchedaEsercizi(@PathVariable long idSchedaEsercizi) {
+        return schedaEserciziService.findByIdSchedaEsercizi(idSchedaEsercizi);
     }
 
     @PutMapping("{idSchedaEsercizi}")
@@ -53,7 +53,7 @@ public class SchedaEserciziController {
 
     @DeleteMapping("/{idSchedaEsercizi}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void deleteSchedaEserciziById(@PathVariable long id) {
-        schedaEserciziService.deleteSchedaEserciziById(id);
+    public void deleteSchedaEserciziById(@PathVariable long idSchedaEsercizi) {
+        schedaEserciziService.deleteSchedaEserciziById(idSchedaEsercizi);
     }
 }

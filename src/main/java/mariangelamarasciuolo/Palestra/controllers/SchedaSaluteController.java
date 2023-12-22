@@ -37,8 +37,8 @@ public class SchedaSaluteController {
     }
 
     @GetMapping("/{idSchedaSalute}")
-    public SchedaSalute findByIdSchedaSalute(@PathVariable long id) {
-        return schedaSaluteService.findByIdSchedaSalute(id);
+    public SchedaSalute findByIdSchedaSalute(@PathVariable long idSchedaSalute) {
+        return schedaSaluteService.findByIdSchedaSalute(idSchedaSalute);
     }
 
     @PutMapping("{idSchedaSalute}")
