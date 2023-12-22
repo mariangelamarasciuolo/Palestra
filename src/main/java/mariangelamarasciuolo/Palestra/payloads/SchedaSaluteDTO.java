@@ -1,14 +1,15 @@
 package mariangelamarasciuolo.Palestra.payloads;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
 public record SchedaSaluteDTO(
-        @NotEmpty(message = "il campo della data della scheda salute non puo essere vuoto")
+
         LocalDate dataSchedaSalute,
 
-        @NotEmpty(message = "il campo delle patologie non puo essere vuoto")
         String patologie,
-        String note) {
+        String note,
+        @NotNull(message = "l'Id della scheda palestra non può essere null")
+        Long schedaPalestra_id) {
 }

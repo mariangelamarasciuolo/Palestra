@@ -1,5 +1,6 @@
 package mariangelamarasciuolo.Palestra.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class SchedaSalute {
     private String patologie;
     private String note;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "scheda_palestra_id")
     private SchedaPalestra schedaPalestra;

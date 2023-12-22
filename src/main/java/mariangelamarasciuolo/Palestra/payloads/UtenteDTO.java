@@ -3,6 +3,7 @@ package mariangelamarasciuolo.Palestra.payloads;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
+
 public record UtenteDTO(
         @NotEmpty(message = "Il nome non puo essere vuoto")
         String nome,

@@ -32,4 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 env.properties
+**/*.log
+**/*.log*
 
+log/d4.log

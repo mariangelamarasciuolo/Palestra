@@ -1,7 +1,13 @@
 package mariangelamarasciuolo.Palestra.repositories;
 
 import mariangelamarasciuolo.Palestra.entities.Utente;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UtenteRepository extends PagingAndSortingRepository<Utente, Long> {
+import java.util.Optional;
+
+@Repository
+public interface UtenteRepository extends JpaRepository<Utente, Long> {
+    Optional<Utente> findByEmail(String email);
+
 }

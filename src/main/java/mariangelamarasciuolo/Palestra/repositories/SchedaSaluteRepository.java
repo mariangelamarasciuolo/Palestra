@@ -1,7 +1,9 @@
 package mariangelamarasciuolo.Palestra.repositories;
 
 import mariangelamarasciuolo.Palestra.entities.SchedaSalute;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface SchedaSaluteRepository extends PagingAndSortingRepository<SchedaSalute, Long> {
+@Repository
+public interface SchedaSaluteRepository extends JpaRepository<SchedaSalute, Long> {
 }

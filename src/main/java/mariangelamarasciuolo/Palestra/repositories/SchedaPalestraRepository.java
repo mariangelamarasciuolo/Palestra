@@ -1,7 +1,9 @@
 package mariangelamarasciuolo.Palestra.repositories;
 
 import mariangelamarasciuolo.Palestra.entities.SchedaPalestra;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface SchedaPalestraRepository extends PagingAndSortingRepository<SchedaPalestra, Long> {
+@Repository
+public interface SchedaPalestraRepository extends JpaRepository<SchedaPalestra, Long> {
 }
