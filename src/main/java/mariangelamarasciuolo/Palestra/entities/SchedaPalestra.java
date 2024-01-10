@@ -27,7 +27,7 @@ public class SchedaPalestra {
     private Utente utente;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "schedaPalestra", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "schedaPalestra", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SchedaEsercizi> schedaEsercizi;
 
     @JsonIgnore

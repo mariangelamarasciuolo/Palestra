@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class IscrizioneService {
@@ -43,6 +44,10 @@ public class IscrizioneService {
 
     public Iscrizione findByIdIscrizione(long idIscrizione) throws NotFoundException {
         return iscrizioneRepository.findById(idIscrizione).orElseThrow(() -> new NotFoundException(idIscrizione));
+    }
+
+    public List<Iscrizione> findByUtenteId(long idUtente) {
+        return iscrizioneRepository.findByUtenteId(idUtente);
     }
 
     public Iscrizione updateIscrizioneById(long idIscrizione, IscrizioneDTO body) {

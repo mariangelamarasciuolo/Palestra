@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class SchedaEserciziService {
@@ -34,6 +35,11 @@ public class SchedaEserciziService {
     public SchedaEsercizi findByIdSchedaEsercizi(long idSchedaEsercizi) throws NotFoundException {
         return schedaEserciziRepository.findById(idSchedaEsercizi).orElseThrow(() -> new NotFoundException(idSchedaEsercizi));
     }
+
+    public List<SchedaEsercizi> findByUtenteId(long idUtente) {
+        return schedaEserciziRepository.findByUtenteId(idUtente);
+    }
+
 
     public SchedaEsercizi updateSchedaEserciziById(long idSchedaEsercizi, SchedaEserciziDTO body) {
         SchedaEsercizi schedaEsercizi = schedaEserciziRepository.findById(idSchedaEsercizi).orElseThrow(() -> new RuntimeException("Scheda esercizi non trovata"));

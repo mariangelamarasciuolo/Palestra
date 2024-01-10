@@ -13,7 +13,6 @@ public record SchedaEserciziDTO(
         @NotNull(message = "il campo della descrizione della scheda esercizi non puo essere vuoto")
         String descrizione,
 
-
-        @NotNull(message = "l'Id dell'utente non può essere null")
+        @NotNull(message = "l'Id della scheda palestra non può essere null")
         Long schedaPalestra_id) {
 }

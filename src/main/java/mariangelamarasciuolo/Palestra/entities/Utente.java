@@ -53,12 +53,14 @@ public class Utente implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.ruolo.name()));
+        List a = List.of(new SimpleGrantedAuthority(this.ruolo.name()));
+        System.out.println(a);
+        return a;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.email;
     }
 
     @Override

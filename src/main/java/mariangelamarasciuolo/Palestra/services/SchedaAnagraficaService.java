@@ -35,6 +35,10 @@ public class SchedaAnagraficaService {
         return schedaAnagraficaRepository.findById(idSchedaAnagrafica).orElseThrow(() -> new NotFoundException(idSchedaAnagrafica));
     }
 
+    public SchedaAnagrafica findByIdUtente(long idUtente) {
+        return schedaAnagraficaRepository.findByIdUtente(idUtente).orElseThrow(() -> new NotFoundException(idUtente));
+    }
+
     public SchedaAnagrafica updateSchedaAnagraficaById(long id, SchedaAnagraficaDTO body) {
         SchedaAnagrafica schedaAnagrafica = schedaAnagraficaRepository.findById(id).orElseThrow(() -> new RuntimeException("Scheda anagrafica non trovata"));
         schedaAnagrafica.setCitta(body.citta());

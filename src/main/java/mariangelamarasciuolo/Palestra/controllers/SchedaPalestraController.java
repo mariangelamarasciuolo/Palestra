@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import mariangelamarasciuolo.Palestra.entities.SchedaPalestra;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaPalestraDTO;
+import mariangelamarasciuolo.Palestra.security.JWTTools;
 import mariangelamarasciuolo.Palestra.services.SchedaPalestraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/schedaPalestra")
+@RequestMapping("/scheda_palestra")
 public class SchedaPalestraController {
     @Autowired
     SchedaPalestraService schedaPalestraService;
+
+    @Autowired
+    JWTTools jwtTools;
 
 
     @PostMapping("")
@@ -39,6 +43,14 @@ public class SchedaPalestraController {
     @GetMapping("/{idSchedaPalestra}")
     public SchedaPalestra findByIdSchedaPalestra(@PathVariable long idSchedaPalestra) {
         return schedaPalestraService.findByIdSchedaPalestra(idSchedaPalestra);
+    }
+
+    @GetMapping
+    public SchedaPalestra findByIdSchedaPalestra(@RequestHeader(name = "Authorization", required = false) String token) {
+        System.out.println(token);
+        Long uId = jwtTools.getUserId(token);
+        System.out.println("uId " + uId);
+        return schedaPalestraService.findByIdUtente(uId);
     }
 
     @PutMapping("{idSchedaPalestra}")

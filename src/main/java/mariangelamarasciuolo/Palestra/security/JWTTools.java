@@ -14,6 +14,7 @@ public class JWTTools {
     @Value("${JWT_SECRET}")
     private String secret;
 
+
     public String createToken(Utente utente) {
         return Jwts.builder().setSubject(String.valueOf(utente.getId()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -31,6 +32,12 @@ public class JWTTools {
 
     public String extractIdFroToken(String token) {
         return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Long getUserId(String token) {
+        token = token.substring(7, token.length());
+        String uId = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(secret.getBytes())).build().parseClaimsJws(token).getBody().getSubject();
+        return Long.parseLong(uId);
     }
 }
 

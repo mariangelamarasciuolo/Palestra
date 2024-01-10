@@ -18,19 +18,21 @@ public class SchedaPalestraService {
     private UtenteRepository utenteRepository;
 
     public SchedaPalestra saveSchedaPalestra(SchedaPalestraDTO body) throws IOException {
-        System.out.println("prima service sheda palestra");
         SchedaPalestra newSchedaPalestra = new SchedaPalestra();
         newSchedaPalestra.setDataDiNascita(body.dataDiNascita());
         newSchedaPalestra.setSesso(body.sesso());
         newSchedaPalestra.setAltezza(body.altezza());
         newSchedaPalestra.setPeso(body.peso());
         newSchedaPalestra.setUtente(utenteRepository.findById(body.utente_id()).get());
-        System.out.println("dopo service sheda palestra");
         return schedaPalestraRepository.save(newSchedaPalestra);
     }
 
     public SchedaPalestra findByIdSchedaPalestra(long idSchedaPalestra) throws NotFoundException {
         return schedaPalestraRepository.findById(idSchedaPalestra).orElseThrow(() -> new NotFoundException(idSchedaPalestra));
+    }
+
+    public SchedaPalestra findByIdUtente(long idUtente) {
+        return schedaPalestraRepository.findByIdUtente(idUtente).orElseThrow(() -> new NotFoundException(idUtente));
     }
 
     public SchedaPalestra updateSchedaPalestraById(long id, SchedaPalestraDTO body) {

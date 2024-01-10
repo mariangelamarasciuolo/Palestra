@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import mariangelamarasciuolo.Palestra.entities.SchedaAnagrafica;
 import mariangelamarasciuolo.Palestra.exceptions.BadRequestException;
 import mariangelamarasciuolo.Palestra.payloads.SchedaAnagraficaDTO;
+import mariangelamarasciuolo.Palestra.security.JWTTools;
 import mariangelamarasciuolo.Palestra.services.SchedaAnagraficaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +22,12 @@ public class SchedaAnagraficaController {
     @Autowired
     private SchedaAnagraficaService schedaAnagraficaService;
 
+    @Autowired
+    private JWTTools jwtTools;
+
     @Hidden
     @PostMapping("")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public SchedaAnagrafica saveSchedaAnagrafica(@RequestBody @Validated SchedaAnagraficaDTO body, BindingResult validation) {
         if (validation.hasErrors()) {
@@ -39,6 +44,14 @@ public class SchedaAnagraficaController {
     @GetMapping("/{idSchedaAnagrafica}")
     public SchedaAnagrafica findByIdSchedaAnagrafica(@PathVariable long idSchedaAnagrafica) {
         return schedaAnagraficaService.findByIdSchedaAnagrafica(idSchedaAnagrafica);
+    }
+
+    @GetMapping
+    public SchedaAnagrafica findByIdSchedaAnagrafica(@RequestHeader(name = "Authorization", required = false) String token) {
+        System.out.println(token);
+        Long uId = jwtTools.getUserId(token);
+        System.out.println("uId " + uId);
+        return schedaAnagraficaService.findByIdUtente(uId);
     }
 
     @PutMapping("/{idSchedaAnagrafica}")

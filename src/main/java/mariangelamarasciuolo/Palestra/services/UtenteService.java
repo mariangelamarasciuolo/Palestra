@@ -34,5 +34,4 @@ public class UtenteService {
         Utente utente = utenteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
         utenteRepository.delete(utente);
     }
-
 }

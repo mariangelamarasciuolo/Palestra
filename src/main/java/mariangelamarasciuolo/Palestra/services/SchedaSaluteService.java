@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class SchedaSaluteService {
@@ -30,10 +31,15 @@ public class SchedaSaluteService {
         newSchedaSalute.setNote(body.note());
         newSchedaSalute.setSchedaPalestra(schedaPalestraRepository.findById(body.schedaPalestra_id()).get());
         return schedaSaluteRepository.save(newSchedaSalute);
+
     }
 
     public SchedaSalute findByIdSchedaSalute(long idSchedaSalute) throws NotFoundException {
         return schedaSaluteRepository.findById(idSchedaSalute).orElseThrow(() -> new NotFoundException(idSchedaSalute));
+    }
+
+    public List<SchedaSalute> findByUtenteId(long idUtente) {
+        return schedaSaluteRepository.findByUtenteId(idUtente);
     }
 
     public SchedaSalute updateSchedaSaluteById(long idSchedaSalute, SchedaSaluteDTO body) {
